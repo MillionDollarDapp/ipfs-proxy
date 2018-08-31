@@ -1,7 +1,7 @@
 {
   "name": "mdapp-ipfs-proxy",
   "version": "1.0.0",
-  "description": "Forwards user image uploads to IPFS and S3 and keeps track of the latest IPFS directory hash.",
+  "description": "Layer between frontend and IPFS. Accepts image uploads, creates IPFS hashes, sends the file to S3 and makes an entry in DynamoDB.",
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.js"
