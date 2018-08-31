@@ -1,0 +1,28 @@
+{
+  "env": "dev",
+  "uploadDir": "/home/ubuntu/uploads",
+
+  "aws": {
+    "dev": {
+      "region": "local",
+      "endpoint": "http://localhost:8000"
+    },
+    "live": {
+      "region": "eu-central-1"
+    }
+  },
+
+  "dynamoDb": {
+    "table_name": "Files"
+  },
+
+  "s3": {
+    "bucket": "bucket-name",
+    "all": {
+      "apiVersion": "2006-03-01"
+    },
+    "dev": {
+      "endpoint": "http://localhost:4567" // For use with FakeS3
+    }
+  }
+}

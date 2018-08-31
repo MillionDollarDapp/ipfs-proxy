@@ -1,0 +1,22 @@
+{
+  "name": "mdapp-ipfs-proxy",
+  "version": "1.0.0",
+  "description": "Forwards user image uploads to IPFS and S3 and keeps track of the latest IPFS directory hash.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "author": "Patrick Stürmlinger <patrick@mindf.org>",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.306.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "file-type": "^9.0.0",
+    "ipfs-api": "^24.0.1",
+    "multer": "^1.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
