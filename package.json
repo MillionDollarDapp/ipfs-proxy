@@ -6,8 +6,16 @@
   "scripts": {
     "start": "nodemon src/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MillionDollarDapp/ipfs-proxy.git"
+  },
   "author": "Patrick Stürmlinger <patrick@mindf.org>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MillionDollarDapp/ipfs-proxy/issues"
+  },
+  "homepage": "https://github.com/MillionDollarDapp/ipfs-proxy#readme",
   "dependencies": {
     "aws-sdk": "^2.306.0",
     "cors": "^2.8.4",
