@@ -68,7 +68,6 @@ module.exports = {
         let s3 = new AWS.S3(s3config);
         s3.putObject(params, function (err) {
           if (err) reject(err)
-          console.log('Successfully uploaded image.')
           resolve()
         })
       })
