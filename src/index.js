@@ -8,13 +8,6 @@ const fileType = require('file-type')
 
 const app = express()
 
-
-// TODO: Watch EditAd events (extra script?)
-// Store blocknumber of latest event in DynamoDB
-// Start from there on app start
-// Add and pin the file if seen
-// Remove file locally and from S3 if Date.now() - timestamp > 12 hours (check every 5min)
-
 app.use(cors())
 
 app.get('/', function (req, res) {
