@@ -13,7 +13,7 @@ const ddb = new AWS.DynamoDB(config.dynamoDb.all)
 const ipfsAPI = require('ipfs-api')
 const ipfs = ipfsAPI()
 
-module.exports = {
+const utils = {
   getIPFSHash (buf) {
     return new Promise((resolve, reject) => {
       ipfs.files.add(buf, { onlyHash: true }, function (err, files) {
@@ -76,3 +76,5 @@ module.exports = {
     })
   }
 }
+
+module.exports = { utils: utils }

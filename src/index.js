@@ -1,6 +1,6 @@
 'use strict'
 
-const { getIPFSHash, writeToUploadDir, addHashToDynamoDb, sendFileToS3 } = require('./utils')
+const { utils } = require('./utils')
 const express = require('express')
 const cors = require('cors')
 const multer  = require('multer')
@@ -33,10 +33,10 @@ app.post('/upload', upload.single('image'), async function (req, res) {
     res.sendStatus(403)
   } else {
     try {
-      let hash = await getIPFSHash(req.file.buffer)
-      await writeToUploadDir(req.file.buffer, hash) // To add it later to ipfs
-      await addHashToDynamoDb(hash)
-      await sendFileToS3(hash)
+      let hash = await utils.getIPFSHash(req.file.buffer)
+      await utils.writeToUploadDir(req.file.buffer, hash) // To add it later to ipfs
+      await utils.addHashToDynamoDb(hash)
+      await utils.sendFileToS3(hash)
       res.json({ hash: hash })
     } catch (e) {
       console.error(e)
