@@ -13,7 +13,10 @@
   },
 
   "dynamoDb": {
-    "table_name": "Files"
+    "table_name": "Files",
+    "all": {
+      "apiVersion": "2012-10-08"
+    }
   },
 
   "s3": {
