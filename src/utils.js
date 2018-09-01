@@ -8,6 +8,8 @@ if (config.env === "dev") {
   AWS.config.update(config.aws.live)
 }
 
+const ddb = new AWS.DynamoDB(config.dynamoDb.all)
+
 const ipfsAPI = require('ipfs-api')
 const ipfs = ipfsAPI()
 
@@ -32,16 +34,15 @@ module.exports = {
 
   addHashToDynamoDb (hash) {
     return new Promise((resolve, reject) => {
-      const docClient = new AWS.DynamoDB.DocumentClient()
       const params = {
         TableName: config.dynamoDb.table_name,
         Item: {
-          hash: hash,
-          uploaded: Math.floor(Date.now() / 1000)
+          hash: {'S': hash},
+          uploaded: {'N': Math.floor(Date.now() / 1000).toString()}
         }
       }
 
-      docClient.put(params, function(err) {
+      ddb.putItem(params, function(err) {
         if (err) reject(err)
         resolve()
       })
