@@ -36,8 +36,7 @@ app.post('/upload', upload.single('image'), async function (req, res) {
       let name = await utils.storeFile(req.file.buffer)
       let hash = await utils.getIPFSHash(name)
       await utils.renameImage(name, hash)
-      await utils.addHashToDynamoDb(hash)
-      await utils.sendFileToS3(hash)
+      await Promise.all([utils.addHashToDynamoDb(hash), utils.sendFileToS3(hash)])
       res.json({ hash: hash })
     } catch (e) {
       console.error(e)

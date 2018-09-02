@@ -57,8 +57,7 @@ const utils = {
         TableName: config.dynamoDb.table_name,
         Item: {
           hash: {'S': hash},
-          uploaded: {'N': Math.floor(Date.now() / 1000).toString()},
-          expired: {'BOOL': false}
+          uploaded: {'N': Math.floor(Date.now() / 1000).toString()}
         }
       }
 
