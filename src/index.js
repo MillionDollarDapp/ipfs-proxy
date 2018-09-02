@@ -33,8 +33,9 @@ app.post('/upload', upload.single('image'), async function (req, res) {
     res.sendStatus(403)
   } else {
     try {
-      let hash = await utils.getIPFSHash(req.file.buffer)
-      await utils.writeToUploadDir(req.file.buffer, hash) // To add it later to ipfs
+      let name = await utils.storeFile(req.file.buffer)
+      let hash = await utils.getIPFSHash(name)
+      await utils.renameImage(name, hash)
       await utils.addHashToDynamoDb(hash)
       await utils.sendFileToS3(hash)
       res.json({ hash: hash })

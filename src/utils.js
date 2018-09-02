@@ -1,5 +1,6 @@
 const config = require('../config/config')
 const fs = require('fs')
+const execFile = require('child_process').execFile
 
 const AWS = require('aws-sdk')
 if (config.env === "dev") {
@@ -14,21 +15,39 @@ const ipfsAPI = require('ipfs-api')
 const ipfs = ipfsAPI()
 
 const utils = {
-  getIPFSHash (buf) {
+  getIPFSHash (name) {
     return new Promise((resolve, reject) => {
-      ipfs.files.add(buf, { onlyHash: true }, function (err, files) {
+      let path = `${config.uploadDir}/${name}`
+
+      fs.readFile(path, (err, data) => {
         if (err) reject(err)
-        resolve(files[0].hash)
+        ipfs.files.add(data, { onlyHash: true }, function (err, files) {
+          if (err) reject(err)
+          resolve(files[0].hash)
+        })
       })
     })
   },
 
-  writeToUploadDir (buf, hash) {
+  storeFile (buf) {
     return new Promise((resolve, reject) => {
-      fs.writeFile(config.uploadDir + "/" + hash, buf, function (err) {
+      let name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + Date.now().toString()
+      let path = `${config.uploadDir}/${name}`
+      fs.writeFile(path, buf, function (err) {
         if(err) reject(err)
+        resolve(name)
+      })
+    })
+  },
+
+  renameImage (name, hash) {
+    return new Promise((resolve, reject) => {
+      let src = `${config.uploadDir}/${name}`
+      let dst = `${config.uploadDir}/${hash}`
+      execFile('mv', [src, dst], (err, stdout, stderr) => {
+        if (err) reject(stderr)
         resolve()
-      });
+      })
     })
   },
 
