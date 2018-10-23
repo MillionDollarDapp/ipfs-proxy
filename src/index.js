@@ -29,7 +29,7 @@ var upload = multer({
 
 app.post('/upload', upload.single('image'), async function (req, res) {
   let mimeType = fileType(req.file.buffer)
-  if (mimeType.mime !== 'image/jpeg' && mimeType.mime !== 'image/png') {
+  if (!mimeType || (mimeType.mime !== 'image/jpeg' && mimeType.mime !== 'image/png')) {
     res.sendStatus(403)
   } else {
     try {
